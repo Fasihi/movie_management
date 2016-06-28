@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :attachment
 
   def profile_pic_url(style = :original)
-    self.attachment.image.url(style)
+    profile_pic = self.attachment
+    profile_pic.try(:image).url(style) if profile_pic
   end
 end
