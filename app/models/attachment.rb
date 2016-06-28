@@ -6,4 +6,6 @@ class Attachment < ActiveRecord::Base
                             },
                     default_url: ":style/missing.png"
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
+
+  belongs_to :attachable, polymorphic: true
 end
