@@ -8,6 +8,11 @@ class User < ActiveRecord::Base
 
   def profile_pic_url(style = :original)
     profile_pic = self.attachment
-    profile_pic.try(:image).url(style) if profile_pic
+    if profile_pic
+      profile_pic.try(:image).url(style)
+    else
+      default_attachment = Attachment.new
+      default_attachment.image.url(:medium)
+   end
   end
 end
