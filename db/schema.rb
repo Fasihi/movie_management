@@ -11,7 +11,48 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160628052309) do
+ActiveRecord::Schema.define(version: 20160629080210) do
+
+  create_table "actors", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.text     "biography",  limit: 65535
+    t.string   "gender",     limit: 255
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  create_table "attachments", force: :cascade do |t|
+    t.string   "image_file_name",    limit: 255
+    t.string   "image_content_type", limit: 255
+    t.integer  "image_file_size",    limit: 4
+    t.datetime "image_updated_at"
+    t.integer  "attachable_id",      limit: 4
+    t.string   "attachable_type",    limit: 255
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+  end
+
+  add_index "attachments", ["attachable_type", "attachable_id"], name: "index_attachments_on_attachable_type_and_attachable_id", using: :btree
+
+  create_table "movies", force: :cascade do |t|
+    t.string   "title",       limit: 255
+    t.string   "trailer",     limit: 255
+    t.text     "description", limit: 65535
+    t.boolean  "approved"
+    t.boolean  "featured"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  create_table "roles", force: :cascade do |t|
+    t.integer  "movie_id",   limit: 4
+    t.integer  "actor_id",   limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "roles", ["actor_id"], name: "index_roles_on_actor_id", using: :btree
+  add_index "roles", ["movie_id"], name: "index_roles_on_movie_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false
@@ -36,4 +77,6 @@ ActiveRecord::Schema.define(version: 20160628052309) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "roles", "actors"
+  add_foreign_key "roles", "movies"
 end
