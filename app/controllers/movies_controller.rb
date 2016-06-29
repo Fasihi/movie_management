@@ -1,6 +1,6 @@
 class MoviesController < ApplicationController
   before_action :set_movie, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_actor, only: [:new, :edit]
   # GET /movies
   # GET /movies.json
   def index
@@ -19,6 +19,7 @@ class MoviesController < ApplicationController
 
   # GET /movies/1/edit
   def edit
+    @selected_values = @movie.actors.pluck(:id)
   end
 
   # POST /movies
@@ -69,6 +70,10 @@ class MoviesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def movie_params
-      params.require(:movie).permit(:title, :trailer, :description, :approved, :featured, attachments_attributes: [:id, :image, :_destroy])
+      params.require(:movie).permit(:title, :trailer, :description, :approved, :featured, actor_ids: [] , attachments_attributes: [:id, :image, :_destroy])
+    end
+
+    def set_actor
+      @actors = Actor.all
     end
 end

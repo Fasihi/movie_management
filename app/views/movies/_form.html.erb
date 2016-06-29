@@ -19,6 +19,10 @@
     <%= f.label :trailer %><br>
     <%= f.text_field :trailer %>
   </div>
+  <div class="field">
+    <%= f.select :actor_ids, options_from_collection_for_select(@actors, 'id', 'name', @selected_values), {}, {:multiple => true } %>
+  </div>
+
   <div>
     <%= f.fields_for :attachments do |ff| %>
       <%= ff.file_field :image %>
