@@ -11,6 +11,10 @@
 </p>
 
 <p>
+  <%= render partial: 'poster', collection: @movie.attachments, as: :attachment %>
+</p>
+
+<p>
   <strong>Description:</strong>
   <%= @movie.display_description %>
 </p>
