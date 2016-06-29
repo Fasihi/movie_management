@@ -8,6 +8,10 @@ class Movie < ActiveRecord::Base
     self.trailer.to_s.html_safe
   end
 
+  def display_actors
+    self.actors.pluck(:name).join(', ')
+  end
+
   has_many :attachments, as: :attachable
   has_many :roles
   has_many :actors, through: :roles

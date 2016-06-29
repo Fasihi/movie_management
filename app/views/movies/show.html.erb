@@ -31,7 +31,7 @@
 
 <p>
   <strong>Actors:</strong>
-  <%= @movie.actors.collect { |actor| actor.name }.join(', ') %>
+  <%= @movie.display_actors %>
 </p>
 
 <%= link_to 'Edit', edit_movie_path(@movie) %> |
