@@ -13,7 +13,7 @@ class Movie < ActiveRecord::Base
   end
 
   def display_duration
-    seconds = duration * 60
+    seconds = duration.to_i * 60
     Time.at(seconds).utc.strftime("%H:%M:%S")
   end
 
