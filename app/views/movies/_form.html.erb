@@ -20,6 +20,18 @@
     <%= f.text_field :trailer %>
   </div>
   <div class="field">
+    <%= f.label :genre %><br>
+    <%= f.text_field :genre %>
+  </div>
+  <div class="field">
+    <%= f.label :duration %><br>
+    <%= f.number_field :duration %>
+  </div>
+  <div class="field">
+    <%= f.label :release_date %><br>
+    <%= f.date_field :release_date %>
+  </div>
+  <div class="field">
     <%= f.select :actor_ids, options_from_collection_for_select(@actors, 'id', 'name', @selected_values), {}, {:multiple => true } %>
   </div>
 

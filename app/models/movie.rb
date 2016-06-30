@@ -12,6 +12,11 @@ class Movie < ActiveRecord::Base
     self.actors.pluck(:name).join(', ')
   end
 
+  def display_duration
+    seconds = duration * 60
+    Time.at(seconds).utc.strftime("%H:%M:%S")
+  end
+
   has_many :attachments, as: :attachable
   has_many :roles
   has_many :actors, through: :roles

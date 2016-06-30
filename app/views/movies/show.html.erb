@@ -11,6 +11,21 @@
 </p>
 
 <p>
+  <strong>Genre:</strong>
+  <%= @movie.genre %>
+</p>
+
+<p>
+  <strong>Duration:</strong>
+    <%= @movie.display_duration %>
+</p>
+
+<p>
+  <strong>Release Date</strong>
+  <%= @movie.release_date %>
+</p>
+
+<p>
   <%= render partial: 'poster', collection: @movie.attachments, as: :attachment %>
 </p>
 
