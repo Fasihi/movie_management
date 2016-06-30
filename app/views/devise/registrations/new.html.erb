@@ -26,6 +26,13 @@
     <%= f.password_field :password_confirmation, autocomplete: "off" %>
   </div>
 
+  <div class="field">
+    <%= f.label :attachment %>
+    <%= f.fields_for :attachment, Attachment.new do |image_form| %>
+      <%= image_form.file_field :image %>
+    <% end %>
+  </div>
+
   <div class="actions">
     <%= f.submit "Sign up" %>
   </div>
