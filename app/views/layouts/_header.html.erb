@@ -1,0 +1,17 @@
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Movie Management System</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <% if user_signed_in? %>
+        <li class="active"><a href="#">Logged in as <strong><%= current_user.email %></strong>.</a></li>
+        <li><%= link_to 'Edit profile', edit_user_registration_path %></a></li>
+        <li><%= link_to 'Logout', destroy_user_session_path, method: :delete %></a></li>
+      <% else %>
+      <li><%= link_to 'Sign up', new_user_registration_path %></a></li>
+      <li><%= link_to 'Login', new_user_session_path %></a></li>
+      <% end %>
+    </ul>
+  </div>
+</nav>
