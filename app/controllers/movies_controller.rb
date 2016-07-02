@@ -1,6 +1,8 @@
 class MoviesController < ApplicationController
   before_action :set_movie, only: [:show, :edit, :update, :destroy]
   before_action :set_actor, only: [:new, :edit]
+  before_action :authenticate_user!, except: [:show, :index]
+
   def index
     @movies = Movie.all
   end
@@ -21,7 +23,7 @@ class MoviesController < ApplicationController
 
     respond_to do |format|
       if @movie.save
-        format.html { redirect_to @movie, notice: 'Movie was successfully created.' }
+        format.html { redirect_to @movie }
         format.json { render :show, status: :created, location: @movie }
       else
         format.html { render :new }
@@ -58,7 +60,7 @@ class MoviesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def movie_params
-      params.require(:movie).permit(:title, :trailer, :description, :genre, :release_date, :duration, :approved, :featured, actor_ids: [] , attachments_attributes: [:id, :image, :_destroy])
+      params.require(:movie).permit(:title, :trailer, :description, :genre, :release_date, :duration, :approved, :featured, actor_ids: [], posters_attributes: [:id, :image, :_destroy])
     end
 
     def set_actor
