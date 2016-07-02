@@ -27,6 +27,7 @@ class Movie < ActiveRecord::Base
   end
 
   def first_poster
-    posters.first
+    poster = posters.first
+    poster ? poster.try(:image).url(:medium) : 'medium/default_poster.jpg'
   end
 end
