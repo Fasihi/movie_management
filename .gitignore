@@ -11,5 +11,5 @@
 /log/*
 !/log/.keep
 /tmp
-/public/*
+/public/system/*
 /config/secrets.yml
