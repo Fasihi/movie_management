@@ -1,53 +1,65 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <div class="col-md-12">
+    <div class="row">
 
-<p>
-  <strong>Title:</strong>
-  <%= @movie.title %>
-</p>
+      <div class="left-area">
+        <h1><%= @movie.title %></h1>
+        <%= @movie.display_trailer %>
 
-<p>
-  <strong>Trailer:</strong>
-  <%= @movie.display_trailer %>
-</p>
+        <div class="poster", id="poster">
+          <p>
+            <%= render partial: 'poster', collection: @movie.posters, as: :poster %>
+          </p>
+        </div>
 
-<p>
-  <strong>Genre:</strong>
-  <%= @movie.genre %>
-</p>
+        <strong>Cast:</strong>
+        <p>
+          <%= @movie.display_actors %>
+        </p>
+      </div>
 
-<p>
-  <strong>Duration:</strong>
-    <%= @movie.display_duration %>
-</p>
+      <div class="right-area">
+        <div class="clearfix">
+          <p><%= image_tag @movie.first_poster %></p>
+        </div>
 
-<p>
-  <strong>Release Date</strong>
-  <%= @movie.release_date %>
-</p>
+        <p>
+          <strong>Description:</strong>
+          <%= @movie.display_description %>
+        </p>
 
-<p>
-  <%= render partial: 'poster', collection: @movie.attachments, as: :attachment %>
-</p>
+        <p>
+          <strong>Genre:</strong>
+          <%= @movie.genre %>
+        </p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @movie.display_description %>
-</p>
+        <p>
+          <strong>Duration:</strong>
+          <%= @movie.display_duration %>
+        </p>
 
-<p>
-  <strong>Approved:</strong>
-  <%= @movie.approved %>
-</p>
+        <p>
+          <strong>Release Date:</strong>
+          <%= @movie.release_date %>
+        </p>
 
-<p>
-  <strong>Featured:</strong>
-  <%= @movie.featured %>
-</p>
+        <p>
+          <strong>Approved:</strong>
+          <%= @movie.approved %>
+        </p>
 
-<p>
-  <strong>Actors:</strong>
-  <%= @movie.display_actors %>
-</p>
+        <p>
+          <strong>Featured:</strong>
+          <%= @movie.featured %>
+        </p>
+      </div>
 
-<%= link_to 'Edit', edit_movie_path(@movie) %> |
-<%= link_to 'Back', movies_path %>
+      <p>
+        <% if user_signed_in? %>
+          <%= link_to 'Edit', edit_movie_path(@movie), class: 'btn btn-success' %>
+          <%= link_to 'Back', movies_path, class: 'btn btn-primary' %>
+        <% end %>
+      </p>
+    </div>
+  </div>
+</div>

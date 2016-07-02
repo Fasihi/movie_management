@@ -1,60 +1,78 @@
-<%= nested_form_for(@movie) do |f| %>
-  <% if @movie.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@movie.errors.count, "error") %> prohibited this movie from being saved:</h2>
+<div class="wrapper container">
+  <div class="row">
+    <div class="col-md-offset-1">
+      <%= nested_form_for(@movie) do |f| %>
+        <% if @movie.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@movie.errors.count, "error") %> prohibited this movie from being saved:</h2>
 
-      <ul>
-      <% @movie.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+            <ul>
+              <% @movie.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+
+          </div>
+        <% end %>
+
+        <div class="form-group">
+          <%= f.label :title %>
+          <%= f.text_field :title, class: 'form-control', required: true, maxlength: 150 %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :genre %>
+          <%= f.text_field :genre, class: 'form-control', required: true, maxlength: 15 %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :trailer %>
+          <%= f.text_area :trailer, class: 'form-control', required: true, maxlength: 1000 %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :release_date %>
+          <%= f.date_field :release_date, required: true, class: 'form-control' %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :duration %>
+          <%= f.number_field :duration, required: true, class: 'form-control' %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :description %>
+          <%= f.cktext_area :description, rows: 10, required: true %>
+        </div>
+
+        <div>
+          <%= f.fields_for :posters do |poster| %>
+            <%= poster.file_field :image %><%= poster.link_to_remove "Remove poster", class: 'btn btn-danger' %>
+          <% end %>
+          <p><%= f.link_to_add "Add poster", :posters, class: 'btn btn-primary' %></p>
+        </div>
+
+        <div>
+          <%= f.label :actor %>
+          <%= f.select :actor_ids, options_from_collection_for_select(@actors, 'id', 'name', @selected_movies), {}, { multiple: true } %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :approved %>
+          <%= f.check_box :approved %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :featured %>
+          <%= f.check_box :featured %>
+        </div>
+
+        <div class="actions">
+          <%= f.submit "Submit", class: 'btn btn-success' %>
+          <%= link_to "Show Movies", movies_path, class: 'btn btn-success' %>
+        </div>
       <% end %>
-      </ul>
+
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
   </div>
-  <div class="field">
-    <%= f.label :trailer %><br>
-    <%= f.text_field :trailer %>
-  </div>
-  <div class="field">
-    <%= f.label :genre %><br>
-    <%= f.text_field :genre %>
-  </div>
-  <div class="field">
-    <%= f.label :duration %><br>
-    <%= f.number_field :duration %>
-  </div>
-  <div class="field">
-    <%= f.label :release_date %><br>
-    <%= f.date_field :release_date %>
-  </div>
-  <div class="field">
-    <%= f.select :actor_ids, options_from_collection_for_select(@actors, 'id', 'name', @selected_values), {}, {:multiple => true } %>
-  </div>
-
-  <div>
-    <%= f.fields_for :attachments do |ff| %>
-      <%= ff.file_field :image %>
-      <%= ff.link_to_remove "Remove item" %>
-    <% end %>
-   <%= f.link_to_add "Add attachments", :attachments %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.cktext_area :description %>
-  </div>
-  <div class="field">
-    <%= f.label :approved %><br>
-    <%= f.check_box :approved %>
-  </div>
-  <div class="field">
-    <%= f.label :featured %><br>
-    <%= f.check_box :featured %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>

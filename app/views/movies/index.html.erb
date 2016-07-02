@@ -1,35 +1,21 @@
-<p id="notice"><%= notice %></p>
+<div class='container'>
+  <h1 class='text-center'>Movies</h1>
+  <div class='container-fluid'>
+    <div class='row'>
+      <% @movies.each do |movie| %>
+        <div class='col-md-3' class='index-movie-alignment'>
+          <%= link_to movie, class: 'movie-anchor' do %>
+            <%= image_tag movie.first_poster, class: 'movie-img' %>
+          <% end %>
+          <div class='movie-title-alignment'>
+            <strong><%= movie.title %></strong>
+          </div>
+        </div>
+      <% end %>
+    </div>
 
-<h1>Listing Movies</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Trailer</th>
-      <th>Description</th>
-      <th>Approved</th>
-      <th>Featured</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @movies.each do |movie| %>
-      <tr>
-        <td><%= movie.title %></td>
-        <td><%= movie.display_trailer %></td>
-        <td><%= movie.display_description %></td>
-        <td><%= movie.approved %></td>
-        <td><%= movie.featured %></td>
-        <td><%= link_to 'Show', movie %></td>
-        <td><%= link_to 'Edit', edit_movie_path(movie) %></td>
-        <td><%= link_to 'Destroy', movie, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Movie', new_movie_path %>
+    <div class='margin-down'>
+      <%= link_to 'New Movie', new_movie_path, class: 'btn btn-info' %>
+    </div>
+  </div>
+</div>
