@@ -16,17 +16,17 @@
         <p>
           <%= @movie.display_actors %>
         </p>
+
+        <p>
+          <strong>Description:</strong>
+          <%= @movie.display_description %>
+        </p>
       </div>
 
       <div class="right-area">
         <div class="clearfix">
           <p><%= image_tag @movie.first_poster %></p>
         </div>
-
-        <p>
-          <strong>Description:</strong>
-          <%= @movie.display_description %>
-        </p>
 
         <p>
           <strong>Genre:</strong>
