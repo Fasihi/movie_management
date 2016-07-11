@@ -1,4 +1,5 @@
 class Movie < ActiveRecord::Base
+  paginates_per 4
   has_many :posters, class_name: "Attachment", as: :attachable, dependent: :destroy
   has_many :roles
   has_many :actors, through: :roles, dependent: :destroy
