@@ -4,7 +4,7 @@ class MoviesController < ApplicationController
   before_action :set_actor, only: [:new, :edit]
 
   def index
-    @movies = Movie.all
+    @movies = Movie.get_movies(params[:filter])
   end
 
   def show

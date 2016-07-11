@@ -1,8 +1,9 @@
 <div class='container'>
   <h1 class='text-center'>Movies</h1>
+
   <div class='container-fluid'>
     <div class='row'>
-      <% @movies.each do |movie| %>
+      <% movies.each do |movie| %>
         <div class='col-md-3' class='index-movie-alignment'>
           <%= link_to movie, class: 'movie-anchor' do %>
             <%= image_tag movie.first_poster, class: 'movie-img' %>
@@ -13,8 +14,9 @@
         </div>
       <% end %>
     </div>
+
     <div class='margin-down'>
-      <%= link_to 'New Movie', new_movie_path, class: 'btn btn-info' %>
+      <%= link_to "View all", movies_path(filter: movie_filter), class: 'btn btn-default' %>
     </div>
   </div>
 </div>

@@ -9,6 +9,9 @@ class Movie < ActiveRecord::Base
   validates :trailer, presence: true
   validates :description, presence: true
 
+  scope :latest_movies, -> { order("release_date DESC") }
+  scope :featured_movies, -> { where(featured: true) }
+
   def display_description
     self.description.to_s.html_safe
   end
@@ -29,6 +32,10 @@ class Movie < ActiveRecord::Base
   def first_poster
     poster = posters.first
     poster ? poster.try(:image).url(:medium) : 'medium/default_poster.jpg'
+  end
+
+  def self.get_movies(param)
+    param == "latest"? Movie.latest_movies : Movie.featured_movies
   end
 
 end
