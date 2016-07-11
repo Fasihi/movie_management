@@ -10,6 +10,7 @@
             Logged in as <strong><%= current_user.email %></strong>
           <% end %>
         </li>
+        <li><%= image_tag current_user.profile_pic_url(:medium), width: "35px", height:"50px"; %></li>
         <li><%= link_to 'Add Movie', new_movie_path %></li>
         <li><%= link_to 'Edit profile', edit_user_registration_path %></li>
         <li><%= link_to 'Logout', destroy_user_session_path, method: :delete %></li>

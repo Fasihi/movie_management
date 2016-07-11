@@ -3,6 +3,7 @@ class Movie < ActiveRecord::Base
   has_many :posters, class_name: "Attachment", as: :attachable, dependent: :destroy
   has_many :roles
   has_many :actors, through: :roles, dependent: :destroy
+  has_many :reviews, dependent: :destroy
 
   accepts_nested_attributes_for :posters, allow_destroy: true
   validates :title, presence: true, uniqueness: true, length: { maximum: 150 }
