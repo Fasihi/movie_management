@@ -1,0 +1,9 @@
+<div>
+  <% if user_signed_in? %>
+    <%= form_for([@movie, @review], remote: true) do |f| %>
+      <%= f.label :comment %><br>
+      <%= f.text_area :comment, class: 'form-group' %>
+      <%= f.submit 'Submit', class: 'btn btn-default' %>
+    <% end %>
+  <% end %>
+</div>

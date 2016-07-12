@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :movies do
-    resources :reviews, only: [:create, :update, :destroy]
+    resources :reviews, only: [:create, :update, :destroy, :edit]
   end
   devise_for :users
 

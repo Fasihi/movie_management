@@ -1,0 +1,8 @@
+<% @movie.reviews.select(&:persisted?).each do |review| %>
+  <div id="<%= review.id %>">
+    <strong>Review:</strong>
+    <%= review.comment %>
+    <span><%= link_to 'Edit', edit_movie_review_path(@movie, review), remote: true %></span>
+    <span><%= link_to 'Destroy', [@movie, review], method: :delete, data: { confirm: 'Are you sure?' }, remote: true %></span>
+  </div>
+<% end %>

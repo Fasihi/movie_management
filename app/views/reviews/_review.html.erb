@@ -1,0 +1,10 @@
+<div class="movie-reviews">
+  <tr id="<%= review.id %>">
+    <td><strong>Review:</strong></td>
+    <td><%= review.comment %></td>
+    <td> by: </td>
+    <td><strong><%= review.user.full_name %></strong></td>
+    <span><%= link_to 'Edit', edit_movie_review_path(@movie, review), remote: true %></span>
+    <span><%= link_to 'Destroy', [@movie, review], method: :delete, data: { confirm: 'Are you sure?' }, remote: true %></span>
+  </tr>
+</div>

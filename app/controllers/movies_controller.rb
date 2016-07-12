@@ -9,6 +9,7 @@ class MoviesController < ApplicationController
   end
 
   def show
+    @review = @movie.reviews.build
   end
 
   def new
