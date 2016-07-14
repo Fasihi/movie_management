@@ -4,7 +4,7 @@
     <%= review.comment %>
 
     <% if user_signed_in? %>
-      <% if check_review_owner(review) %>
+      <% if review_owner?(review) %>
         <div class='clearfix'></div>
         <%= link_to 'Edit', edit_movie_review_path(@movie, review), class: 'btn btn-xs btn-success' %>
         <%= link_to 'Destroy', [@movie, review], remote: true, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger' %>
