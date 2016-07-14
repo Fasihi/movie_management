@@ -2,7 +2,15 @@
   <div id="<%= review.id %>">
     <strong>Review:</strong>
     <%= review.comment %>
-    <span><%= link_to 'Edit', edit_movie_review_path(@movie, review), remote: true %></span>
-    <span><%= link_to 'Destroy', [@movie, review], method: :delete, data: { confirm: 'Are you sure?' }, remote: true %></span>
+
+    <% if user_signed_in? %>
+      <% if check_review_owner(review) %>
+        <div class='clearfix'></div>
+        <%= link_to 'Edit', edit_movie_review_path(@movie, review), class: 'btn btn-xs btn-success' %>
+        <%= link_to 'Destroy', [@movie, review], remote: true, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger' %>
+      <% else %>
+        <%= link_to 'Report', review_reported_reviews_path(review), class: 'btn btn-xs btn-primary', remote: true, method: :post %>
+      <% end %>
+    <% end %>
   </div>
 <% end %>

@@ -3,6 +3,11 @@ Rails.application.routes.draw do
     resources :reviews, only: [:create, :update, :destroy, :edit]
     resources :ratings, only: [:create, :update, :destroy]
   end
+
+  resources :reviews, only: [] do
+    resources :reported_reviews, only: [:create]
+  end
+
   devise_for :users
 
   # The priority is based upon order of creation: first created -> highest priority.
