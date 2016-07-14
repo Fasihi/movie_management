@@ -4,6 +4,7 @@ class Movie < ActiveRecord::Base
   has_many :roles
   has_many :actors, through: :roles, dependent: :destroy
   has_many :reviews, dependent: :destroy
+  has_many :ratings, dependent: :destroy
 
   accepts_nested_attributes_for :posters, allow_destroy: true
   validates :title, presence: true, uniqueness: true, length: { maximum: 150 }
@@ -40,4 +41,11 @@ class Movie < ActiveRecord::Base
     param == "latest"? Movie.latest_movies : Movie.featured_movies
   end
 
+  def get_average
+    self.ratings.present? ? self.ratings.average(:score) : 0
+  end
+
+  def get_ratings(user)
+    user.ratings.for_movie(self).first || user.ratings.build(movie: self)
+  end
 end

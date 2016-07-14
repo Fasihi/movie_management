@@ -1,8 +1,13 @@
-<div class="container">
+<div id="movie-container" class="container" data-movie="<%= @movie.id %>" data-rating="<%= @rating.id if user_signed_in? %>">
   <div class="col-md-12">
     <div class="row">
 
       <div class="left-area">
+      <div id='movie-rating'>
+        <div class="rating">
+        </div>
+      </div>
+
         <p>
           <% if user_signed_in? %>
             <%= link_to 'Edit', edit_movie_path(@movie), class: 'btn btn-success' %>
@@ -66,9 +71,23 @@
     </div>
   </div>
 </div>
+
+<% if user_signed_in? %>
+  <div>
+    <h2>Add Rating:</h2>
+    <div class='star-rating' data-score=<%= @rating.score %>></div>
+  </div>
+<% end %>
+
+<div>
+  <h2>Rating:</h2>
+  <div class='avg-star-rating' data-score=<%= @movie.get_average %> ></div>
+</div>
+
 <div id='movie-reviews'>
   <%= render 'reviews/show' %>
 </div>
+
 <h2>Add a Review:</h2>
 <div id='review-container'>
   <%= render 'reviews/form' %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160711103444) do
+ActiveRecord::Schema.define(version: 20160713074504) do
 
   create_table "actors", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -46,6 +46,27 @@ ActiveRecord::Schema.define(version: 20160711103444) do
     t.string   "genre",        limit: 50
     t.date     "release_date"
   end
+
+  create_table "ratings", force: :cascade do |t|
+    t.integer  "score",      limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.integer  "user_id",    limit: 4
+    t.integer  "movie_id",   limit: 4
+  end
+
+  add_index "ratings", ["movie_id"], name: "index_ratings_on_movie_id", using: :btree
+  add_index "ratings", ["user_id"], name: "index_ratings_on_user_id", using: :btree
+
+  create_table "reported_reviews", force: :cascade do |t|
+    t.integer  "user_id",    limit: 4
+    t.integer  "review_id",  limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "reported_reviews", ["review_id"], name: "index_reported_reviews_on_review_id", using: :btree
+  add_index "reported_reviews", ["user_id"], name: "index_reported_reviews_on_user_id", using: :btree
 
   create_table "reviews", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
@@ -91,6 +112,10 @@ ActiveRecord::Schema.define(version: 20160711103444) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "ratings", "movies"
+  add_foreign_key "ratings", "users"
+  add_foreign_key "reported_reviews", "reviews"
+  add_foreign_key "reported_reviews", "users"
   add_foreign_key "reviews", "movies"
   add_foreign_key "reviews", "users"
   add_foreign_key "roles", "actors"

@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
   has_one :attachment, as: :attachable
+  has_many :ratings
   accepts_nested_attributes_for :attachment
 
   def profile_pic_url(style = :original)
