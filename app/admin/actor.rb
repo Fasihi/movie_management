@@ -18,7 +18,7 @@ ActiveAdmin.register Actor do
       f.input :biography
       f.input :gender
     end
-  f.actions
+    f.actions
   end
 
 end
