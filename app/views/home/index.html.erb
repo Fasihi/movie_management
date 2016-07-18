@@ -1,5 +1,9 @@
-<h1>Latest</h1>
-<%= render 'movie', movies: @latest, movie_filter: 'latest' %>
+<% if @latest.present? %>
+  <h1 class="text-center">Latest</h1>
+  <%= render 'movie', movies: @latest, movie_filter: 'latest' %>
+<% end %>
 
-<h1>Featured</h1>
-<%= render 'movie', movies: @featured, movie_filter: 'featured' %>
+<% if @featured.present? %>
+  <h1 class="text-center">Featured</h1>
+  <%= render 'movie', movies: @featured, movie_filter: 'featured' %>
+<% end %>
