@@ -1,7 +1,7 @@
 class MoviesController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit, :destroy, :update, :create]
   before_action :set_movie, only: [:show, :edit, :update, :destroy]
-  before_action :set_actor, only: [:new, :edit]
+  before_action :set_actors, only: [:new, :edit, :create, :update]
 
   def index
     @movies = Movie.get_movies(params[:filter])
@@ -71,7 +71,7 @@ class MoviesController < ApplicationController
       params.require(:movie).permit(:title, :trailer, :description, :genre, :release_date, :duration, :approved, :featured, actor_ids: [], posters_attributes: [:id, :image, :_destroy])
     end
 
-    def set_actor
+    def set_actors
       @actors = Actor.all
     end
 end
