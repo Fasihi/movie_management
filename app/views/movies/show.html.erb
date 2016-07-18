@@ -3,11 +3,49 @@
     <div class="row">
 
       <div class="left-area">
-      <div id='movie-rating'>
-        <div class="rating">
+        <div class="clearfix">
+          <p><%= image_tag @movie.first_poster %></p>
         </div>
+
+        <% if user_signed_in? %>
+          <div>
+            <h2>Your Rating:</h2>
+            <div class='star-rating' data-score=<%= @rating.score %>></div>
+          </div>
+        <% end %>
+
+        <div>
+          <h2>Rating:</h2>
+          <div class='avg-star-rating' data-score=<%= @movie.get_average %> ></div>
+        </div>
+
+        <p>
+          <strong>Genre:</strong>
+          <%= @movie.genre %>
+        </p>
+
+        <p>
+          <strong>Duration:</strong>
+          <%= @movie.display_duration %>
+        </p>
+
+        <p>
+          <strong>Release Date:</strong>
+          <%= display_date(@movie.release_date) %>
+        </p>
+
+        <p>
+          <strong>Approved:</strong>
+          <%= @movie.approved %>
+        </p>
+
+        <p>
+          <strong>Featured:</strong>
+          <%= @movie.featured %>
+        </p>
       </div>
 
+      <div class="right-area">
         <p>
           <% if user_signed_in? %>
             <%= link_to 'Edit', edit_movie_path(@movie), class: 'btn btn-success' %>
@@ -18,7 +56,12 @@
           <% end %>
         </p>
         <h1><%= @movie.title %></h1>
-        <%= @movie.display_trailer %>
+
+        <% if @movie.trailer.present? %>
+          <%= @movie.display_trailer %>
+        <% else %>
+          <p>Sorry! No trailer found!</p>
+        <% end %>
 
         <div class="poster", id="poster">
           <p>
@@ -37,51 +80,8 @@
         </p>
       </div>
 
-      <div class="right-area">
-        <div class="clearfix">
-          <p><%= image_tag @movie.first_poster %></p>
-        </div>
-
-        <p>
-          <strong>Genre:</strong>
-          <%= @movie.genre %>
-        </p>
-
-        <p>
-          <strong>Duration:</strong>
-          <%= @movie.display_duration %>
-        </p>
-
-        <p>
-          <strong>Release Date:</strong>
-          <%= @movie.release_date %>
-        </p>
-
-        <p>
-          <strong>Approved:</strong>
-          <%= @movie.approved %>
-        </p>
-
-        <p>
-          <strong>Featured:</strong>
-          <%= @movie.featured %>
-        </p>
-      </div>
-
     </div>
   </div>
-</div>
-
-<% if user_signed_in? %>
-  <div>
-    <h2>Add Rating:</h2>
-    <div class='star-rating' data-score=<%= @rating.score %>></div>
-  </div>
-<% end %>
-
-<div>
-  <h2>Rating:</h2>
-  <div class='avg-star-rating' data-score=<%= @movie.get_average %> ></div>
 </div>
 
 <div id='movie-reviews'>
