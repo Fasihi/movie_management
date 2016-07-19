@@ -9,7 +9,7 @@ class Movie < ActiveRecord::Base
   accepts_nested_attributes_for :posters, allow_destroy: true
   validates :title, presence: true, uniqueness: true, length: { maximum: 150 }
   validates :genre, presence: true, length: { maximum: 15 }
-  validates :trailer, presence: true
+  validates :trailer, presence: true, length: { maximum: 2000 }
   validates :description, presence: true
 
   scope :latest_movies, -> { order("release_date DESC") }
