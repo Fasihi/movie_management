@@ -1,0 +1,53 @@
+<div class='row'>
+  <div class='col-md-12'>
+    <div class='panel panel-default'>
+      <div class='panel-heading'>
+        <h1>View Profile</h1>
+      </div>
+      <div class='panel-body'>
+        <div class='row'>
+          <div class='col-md-6'>
+            <%= image_tag @user.profile_pic_url(:medium), class: 'img-responsive' %>
+          </div>
+          <div class='col-md-6'>
+            <div class='newline'>
+              <span>
+                <strong>Name: </strong>
+              </span>
+              <%= @user.full_name %>
+            </div>
+            <div class='newline'>
+              <span>
+                <strong>Email:</strong>
+              </span>
+              <%= @user.email %>
+            </div>
+
+            <div class='newline word-wrapper'>
+              <span>
+                <strong>Password:</strong>
+              </span>
+              <%= @user.encrypted_password %>
+            </div>
+
+            <div class='newline'>
+              <span>
+                <strong>Current IP:</strong>
+              </span>
+              <%= @user.current_sign_in_ip %>
+            </div>
+
+            <div class='newline'>
+              <span>
+                <strong>SignIn Count:</strong>
+              </span>
+              <%= @user.sign_in_count %>
+            </div>
+
+            <%= link_to 'Back', root_url, class: 'btn btn-primary' %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -17,6 +17,10 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
 
+  resources :users, only: [:show]
+
+  get '/my_profile', to: 'users#my_profile'
+
   root 'home#index'
 
   # Example of regular route:
