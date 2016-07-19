@@ -1,6 +1,4 @@
 <div class='container'>
-  <h1 class='text-center'>Movies</h1>
-
   <div class='container-fluid'>
     <div class='row'>
       <% movies.each do |movie| %>
@@ -9,7 +7,10 @@
             <%= image_tag movie.first_poster, class: 'movie-img' %>
           <% end %>
           <div class='movie-title-alignment'>
-            <strong><%= movie.title %></strong>
+            <h4><strong><%= movie.title %></strong></h4>
+          </div>
+          <div class="text-center">
+            <div class='avg-star-rating' data-score=<%= movie.get_average %>></div>
           </div>
         </div>
       <% end %>

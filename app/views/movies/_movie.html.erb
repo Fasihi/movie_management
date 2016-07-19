@@ -1,0 +1,11 @@
+<div class='col-md-3' class='index-movie-alignment'>
+  <%= link_to movie, class: 'movie-anchor' do %>
+    <%= image_tag movie.first_poster, class: 'movie-img' %>
+  <% end %>
+  <div class='movie-title-alignment'>
+    <h4><strong><%= movie.title %></strong></h4>
+  </div>
+  <div class="text-center">
+    <div class='avg-star-rating' data-score=<%= movie.get_average %>></div>
+  </div>
+</div>

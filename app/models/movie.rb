@@ -14,6 +14,7 @@ class Movie < ActiveRecord::Base
 
   scope :latest_movies, -> { order("release_date DESC") }
   scope :featured_movies, -> { where(featured: true) }
+  scope :top_movies, -> { joins(:ratings).group('movie_id').order('AVG(ratings.score) DESC') }
 
   def display_description
     self.description.to_s.html_safe
@@ -37,8 +38,16 @@ class Movie < ActiveRecord::Base
     poster ? poster.try(:image).url(:medium) : 'medium/default_poster.jpg'
   end
 
-  def self.get_movies(param)
-    param == "latest"? Movie.latest_movies : Movie.featured_movies
+  def self.get_movies(filter)
+    if filter == "latest"
+      Movie.latest_movies
+    elsif filter == "featured"
+      Movie.featured_movies
+    elsif filter == "top"
+      Movie.top_movies
+    else
+      Movie.all
+    end
   end
 
   def get_average
