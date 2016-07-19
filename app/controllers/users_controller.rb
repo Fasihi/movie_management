@@ -7,6 +7,6 @@ class UsersController < ApplicationController
 
   def my_profile
     @user = current_user
-    @favorite_movies = @user.favorite_movies.page(params[:page])
+    @favorite_movies = @user.favorites.page(params[:page])
   end
 end

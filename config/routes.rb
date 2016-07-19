@@ -21,6 +21,10 @@ Rails.application.routes.draw do
 
   get '/my_profile', to: 'users#my_profile'
 
+  resources :movies, only: [] do
+    resources :favorite_movies, only: [:create]
+  end
+
   root 'home#index'
 
   # Example of regular route:

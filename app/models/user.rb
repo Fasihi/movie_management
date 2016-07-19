@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
   has_one :attachment, as: :attachable
   has_many :ratings
   has_many :reported_reviews
+  has_many :favorites, class_name: 'FavoriteMovie'
+  has_many :favorite_movies, class_name: 'Movie', through: :favorites, source: :movie
 
   accepts_nested_attributes_for :attachment
 

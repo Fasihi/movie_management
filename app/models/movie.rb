@@ -5,6 +5,7 @@ class Movie < ActiveRecord::Base
   has_many :actors, through: :roles, dependent: :destroy
   has_many :reviews, dependent: :destroy
   has_many :ratings, dependent: :destroy
+  has_many :favorite_movies
 
   accepts_nested_attributes_for :posters, allow_destroy: true
   validates :title, presence: true, uniqueness: true, length: { maximum: 150 }
@@ -56,5 +57,9 @@ class Movie < ActiveRecord::Base
 
   def get_ratings(user)
     user.ratings.for_movie(self).first || user.ratings.build(movie: self)
+  end
+
+  def favorite_of?(user)
+    user.favorite_movies.include? self
   end
 end

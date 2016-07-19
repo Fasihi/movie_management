@@ -19,6 +19,8 @@
           <div class='avg-star-rating' data-score=<%= @movie.get_average %> ></div>
         </div>
 
+        <%= link_to 'Add to Favorite', movie_favorite_movies_path(@movie), method: :post, remote: true, class: 'btn btn-xs btn-primary' %>
+
         <p>
           <strong>Genre:</strong>
           <%= @movie.genre %>
