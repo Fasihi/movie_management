@@ -1,5 +1,11 @@
 class Movie < ActiveRecord::Base
+  include ThinkingSphinx::Scopes
+
   paginates_per 4
+  SEARCH_PER_PAGE = 6
+  DEFAULT_SEARCH_FILTER = { approved: true }
+  DEFAULT_SEARCH_ORDER = 'updated_at DESC'
+
   has_many :posters, class_name: "Attachment", as: :attachable, dependent: :destroy
   has_many :roles
   has_many :actors, through: :roles, dependent: :destroy
@@ -16,6 +22,8 @@ class Movie < ActiveRecord::Base
   scope :latest_movies, -> { order("release_date DESC") }
   scope :featured_movies, -> { where(featured: true) }
   scope :top_movies, -> { joins(:ratings).group('movie_id').order('AVG(ratings.score) DESC') }
+  scope :sort, -> { order('release_date DESC') }
+  scope :approved, -> { where(approved: true) }
 
   def display_description
     self.description.to_s.html_safe
@@ -61,5 +69,24 @@ class Movie < ActiveRecord::Base
 
   def favorite_of?(user)
     user.favorite_movies.include? self
+  end
+
+  def self.search_movies(params)
+    conditions =  {
+                    conditions: {},
+                    with: {},
+                    order: 'release_date DESC',
+                  }
+
+    conditions[:conditions][:genre] = params[:genre] if params[:genre].present?
+    conditions[:conditions][:actors] = params[:actors] if params[:actors].present?
+    conditions[:with][:release_date] = date_range(params[:start_date], params[:end_date])
+    conditions[:with][:approved] = true
+
+    search params[:search], conditions
+  end
+
+  def self.date_range(start_date, end_date)
+    Date.parse(start_date)..Date.parse(end_date) if start_date.present? && end_date.present?
   end
 end

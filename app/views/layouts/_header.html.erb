@@ -4,6 +4,7 @@
       <%= link_to "Movie Management System", root_path, class: 'navbar-brand' %>
     </div>
     <ul class="nav navbar-nav pull-right">
+      <li><%= render 'layouts/search' %></li>
       <% if user_signed_in? %>
         <li class="active">
           <strong><%= link_to current_user.email, my_profile_path %></strong>

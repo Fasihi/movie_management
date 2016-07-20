@@ -4,8 +4,8 @@ class MoviesController < ApplicationController
   before_action :set_actors, only: [:new, :edit, :create, :update]
 
   def index
-    @movies = Movie.get_movies(params[:filter])
-    @movies = @movies.page(params[:page])
+    @movies = Movie.search_movies(params)
+    @movies = @movies.page(params[:page]).per(Movie::SEARCH_PER_PAGE)
   end
 
   def show
@@ -14,7 +14,6 @@ class MoviesController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json { render json: @movie }
     end
   end
 
