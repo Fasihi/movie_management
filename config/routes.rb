@@ -25,6 +25,12 @@ Rails.application.routes.draw do
     resources :favorite_movies, only: [:create]
   end
 
+  namespace :api, defaults: {format: 'json'} do
+    namespace :v1 do
+      resources :movies, only: [:show, :index]
+    end
+  end
+
   root 'home#index'
 
   # Example of regular route:

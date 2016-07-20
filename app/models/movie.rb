@@ -71,6 +71,28 @@ class Movie < ActiveRecord::Base
     user.favorite_movies.include? self
   end
 
+  def details_hash
+    {
+      id: id,
+      genre: genre,
+      description: description,
+      actors: actors.pluck(:id, :name, :biography, :gender, :created_at, :updated_at),
+      reviews: reviews.pluck(:id, :user_id, :comment, :created_at, :updated_at, :report_count),
+      ratings: ratings.pluck(:id, :score, :created_at, :updated_at, :user_id),
+    }
+  end
+
+  def self.search_movie(params)
+    conditions = {
+      title: params[:title],
+      genre: params[:genre],
+      actors: params[:actors],
+      release_date: params[:release_date]
+    }
+
+    Movie.search(conditions: conditions, with: DEFAULT_SEARCH_FILTER, order: DEFAULT_SEARCH_ORDER)
+  end
+
   def self.search_movies(params)
     conditions =  {
                     conditions: {},
