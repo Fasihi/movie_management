@@ -87,6 +87,12 @@ class Movie < ActiveRecord::Base
   end
 
   def self.date_range(start_date, end_date)
-    Date.parse(start_date)..Date.parse(end_date) if start_date.present? && end_date.present?
+    if start_date.present? && end_date.present?
+      Date.parse(start_date)..Date.parse(end_date)
+    elsif start_date.present?
+      Date.parse(start_date)..Date.today
+    else
+      []
+    end
   end
 end
