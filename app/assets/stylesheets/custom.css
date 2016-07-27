@@ -1,0 +1,19 @@
+#footer-background {
+  background: black;
+}
+
+#search_bar {
+ display: none;
+}
+
+.login, .registration {
+  display: inline-block;
+}
+
+.password-length {
+  font-size: 12px;
+}
+
+.profile {
+  color: #808080;
+}

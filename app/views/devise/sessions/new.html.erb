@@ -1,14 +1,17 @@
 <div class="panel-heading">
-  <span class="glyphicon glyphicon-lock"></span> Login
+  <span class="glyphicon glyphicon-lock"></span>
+  <h4 class="login"><strong>Login</strong></h4>
 </div>
 
 <div class="panel-body">
   <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
     <div class="form-group">
+      <%= f.label :email %>
       <%= f.email_field :email, placeholder: 'Email', autofocus: true, class: 'form-control', required: true %>
     </div>
 
     <div class="form-group">
+      <%= f.label :password %>
       <%= f.password_field :password, placeholder: 'Password', autocomplete: 'off', class: 'form-control', required: true %>
     </div>
 
@@ -17,13 +20,9 @@
         <div class="field">
           <%= f.check_box :remember_me %>
           <%= f.label :remember_me %>
+          <%= f.submit 'Log in', class: 'btn btn-success btn-sm pull-right' %>
         </div>
       <% end -%>
-
-    </div>
-
-    <div class="form-group last">
-      <%= f.submit 'Log in', class: 'btn btn-success btn-sm' %>
     </div>
   <% end %>
 

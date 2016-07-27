@@ -5,9 +5,12 @@
     </div>
     <ul class="nav navbar-nav pull-right">
       <li><%= render 'layouts/search' %></li>
+      <% if movie_index_page? %>
+        <li><%= link_to 'Advance Search', '#', id: 'advance_search_btn' %></li>
+      <% end %>
       <% if user_signed_in? %>
         <li class="active">
-          <strong><%= link_to current_user.email, my_profile_path %></strong>
+          <strong><%= link_to current_user.full_name, my_profile_path %></strong>
           <%= image_tag current_user.profile_pic_url(:thumb), width: '35px', height: '50px' %>
         </li>
         <li><%= link_to 'Add Movie', new_movie_path %></li>
