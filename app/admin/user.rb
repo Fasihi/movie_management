@@ -1,6 +1,7 @@
 ActiveAdmin.register User do
 
   permit_params :email, :password
+  actions :all, except: [:edit, :destroy]
 
   index do
     column :email
@@ -18,5 +19,7 @@ ActiveAdmin.register User do
     end
     f.actions
   end
+
+  filter :favorite_movies
 
 end

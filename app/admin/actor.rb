@@ -4,7 +4,9 @@ ActiveAdmin.register Actor do
 
   index do
     column :id
-    column :name
+    column :name do |actor|
+      link_to actor.name, admin_actor_path(actor.id)
+    end
     column :biography
     column :gender
     column :created_at
@@ -20,5 +22,7 @@ ActiveAdmin.register Actor do
     end
     f.actions
   end
+
+  filter :movies
 
 end

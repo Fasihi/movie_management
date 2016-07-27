@@ -10,4 +10,7 @@ ActiveAdmin.register Review do
     actions
   end
 
+  filter :movie
+  filter :user
+
 end

@@ -4,7 +4,9 @@ ActiveAdmin.register Movie do
 
   index do
     column :title
-    column :description
+    column :description do |movie|
+      truncate(movie.description, length: 200)
+    end
     column :approved
     column :actors do |movie|
       movie.display_actors
@@ -62,5 +64,7 @@ ActiveAdmin.register Movie do
     end
     f.actions
   end
+
+  filter :actors
 
 end
