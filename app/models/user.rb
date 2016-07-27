@@ -3,10 +3,11 @@ class User < ActiveRecord::Base
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
-  has_one :attachment, as: :attachable
-  has_many :ratings
-  has_many :reported_reviews
-  has_many :favorites, class_name: 'FavoriteMovie'
+  has_one :attachment, as: :attachable, dependent: :destroy
+  has_many :reviews, dependent: :destroy
+  has_many :ratings, dependent: :destroy
+  has_many :reported_reviews, dependent: :destroy
+  has_many :favorites, class_name: 'FavoriteMovie', dependent: :destroy
   has_many :favorite_movies, class_name: 'Movie', through: :favorites, source: :movie
 
   accepts_nested_attributes_for :attachment
