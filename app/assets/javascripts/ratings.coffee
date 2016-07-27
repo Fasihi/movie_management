@@ -5,7 +5,7 @@
 set_average = (avg) ->
   $('.avg-star-rating').raty 'set', score: avg
 
-$ ->
+$(document).on 'ready turbolinks:load', ->
   $('.rating').raty
     path: '/assets'
     readOnly: true
@@ -38,7 +38,7 @@ $ ->
             score: score
           dataType: 'json'
           success: (data) ->
-            set_average(score)
+            set_average(data.rating.score)
       else
         $.ajax
           type: 'PATCH'
