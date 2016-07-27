@@ -2,18 +2,18 @@ class Movie < ActiveRecord::Base
   include ThinkingSphinx::Scopes
 
   paginates_per 4
-  SEARCH_PER_PAGE = 6
+  SEARCH_PER_PAGE = 4
   DEFAULT_SEARCH_FILTER = { approved: true }
   DEFAULT_SEARCH_ORDER = 'updated_at DESC'
 
   has_many :posters, class_name: "Attachment", as: :attachable, dependent: :destroy
-  has_many :roles
+  has_many :roles, dependent: :destroy
   has_many :actors, through: :roles, dependent: :destroy
   has_many :reviews, dependent: :destroy
   has_many :ratings, dependent: :destroy
-  has_many :favorite_movies
+  has_many :favorite_movies, dependent: :destroy
 
-  accepts_nested_attributes_for :posters, allow_destroy: true
+  accepts_nested_attributes_for :posters, allow_destroy: true, reject_if: proc { |attributes| attributes['image'].blank? }
   validates :title, presence: true, uniqueness: true, length: { maximum: 150 }
   validates :genre, presence: true, length: { maximum: 15 }
   validates :trailer, presence: true, length: { maximum: 2000 }
@@ -23,7 +23,7 @@ class Movie < ActiveRecord::Base
   scope :featured_movies, -> { where(featured: true) }
   scope :top_movies, -> { joins(:ratings).group('movie_id').order('AVG(ratings.score) DESC') }
   scope :sort, -> { order('release_date DESC') }
-  scope :approved, -> { where(approved: true) }
+  scope :approved, -> { where(approved: true).sort }
 
   def display_description
     self.description.to_s.html_safe
@@ -49,13 +49,13 @@ class Movie < ActiveRecord::Base
 
   def self.get_movies(filter)
     if filter == "latest"
-      Movie.latest_movies
+      Movie.latest_movies.approved
     elsif filter == "featured"
-      Movie.featured_movies
+      Movie.featured_movies.approved
     elsif filter == "top"
-      Movie.top_movies
+      Movie.top_movies.approved
     else
-      Movie.all
+      Movie.all.approved
     end
   end
 
@@ -94,18 +94,22 @@ class Movie < ActiveRecord::Base
   end
 
   def self.search_movies(params)
-    conditions =  {
-                    conditions: {},
-                    with: {},
-                    order: 'release_date DESC',
-                  }
+    if(params[:filter])
+      get_movies(params[:filter])
+    else
+      conditions =  {
+                      conditions: {},
+                      with: {},
+                      order: 'release_date DESC',
+                    }
 
-    conditions[:conditions][:genre] = params[:genre] if params[:genre].present?
-    conditions[:conditions][:actors] = params[:actors] if params[:actors].present?
-    conditions[:with][:release_date] = date_range(params[:start_date], params[:end_date])
-    conditions[:with][:approved] = true
+      conditions[:conditions][:genre] = params[:genre] if params[:genre].present?
+      conditions[:conditions][:actors] = params[:actors] if params[:actors].present?
+      conditions[:with][:release_date] = date_range(params[:start_date], params[:end_date]) if params[:start_date].present?
+      conditions[:with][:approved] = true
 
-    search params[:search], conditions
+      self.search params[:search], conditions
+    end
   end
 
   def self.date_range(start_date, end_date)
@@ -113,8 +117,6 @@ class Movie < ActiveRecord::Base
       Date.parse(start_date)..Date.parse(end_date)
     elsif start_date.present?
       Date.parse(start_date)..Date.today
-    else
-      []
     end
   end
 end
