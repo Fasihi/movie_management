@@ -2,6 +2,7 @@ module Api
   module V1
     class MoviesController < ApplicationController
       respond_to :json
+      before_action :restrict_access
 
       def index
         if (params[:title] || params[:genre] || params[:actors] || params[:release_date])
@@ -19,6 +20,14 @@ module Api
           respond_with []
         end
       end
+
+      private
+
+        def restrict_access
+          authenticate_or_request_with_http_token do |token|
+            token == API_KEY
+          end
+        end
 
     end
   end
