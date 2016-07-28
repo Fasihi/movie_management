@@ -36,7 +36,7 @@
 
         <div class="form-group">
           <%= f.label :duration %>
-          <%= f.number_field :duration, required: true, class: 'form-control' %>
+          <%= f.number_field :duration, required: true, class: 'form-control', min: '0', step: '1' %>
         </div>
 
         <div class="form-group">
@@ -61,16 +61,6 @@
         <div>
           <%= f.label :actor %>
           <%= f.select :actor_ids, options_from_collection_for_select(@actors, 'id', 'name', @selected_values), {}, { multiple: true } %>
-        </div>
-
-        <div class="form-group">
-          <%= f.label :approved %>
-          <%= f.check_box :approved %>
-        </div>
-
-        <div class="form-group">
-          <%= f.label :featured %>
-          <%= f.check_box :featured %>
         </div>
 
         <div class="actions">

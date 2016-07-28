@@ -21,42 +21,33 @@
 
         <%= link_to 'Add to Favorite', movie_favorite_movies_path(@movie), method: :post, remote: true, class: 'btn btn-xs btn-primary' %>
 
-        <p>
+        <h4>
           <strong>Genre:</strong>
           <%= @movie.genre %>
-        </p>
+        </h4>
 
-        <p>
+        <h4>
           <strong>Duration:</strong>
           <%= @movie.display_duration %>
-        </p>
+        </h4>
 
-        <p>
+        <h4>
           <strong>Release Date:</strong>
           <%= display_date(@movie.release_date) %>
-        </p>
+        </h4>
 
-        <p>
+        <h4>
           <strong>Approved:</strong>
           <%= @movie.approved %>
-        </p>
+        </h4>
 
-        <p>
+        <h4>
           <strong>Featured:</strong>
           <%= @movie.featured %>
-        </p>
+        </h4>
       </div>
 
       <div class="right-area">
-        <p>
-          <% if user_signed_in? %>
-            <%= link_to 'Edit', edit_movie_path(@movie), class: 'btn btn-success' %>
-
-            <%= link_to 'Back', root_path, class: 'btn btn-primary' %>
-
-            <%= link_to 'Destroy', @movie, class: "btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %>
-          <% end %>
-        </p>
         <h1><%= @movie.title %></h1>
 
         <% if @movie.trailer.present? %>
@@ -71,26 +62,44 @@
           </p>
         </div>
 
-        <strong>Cast:</strong>
+        <h4>
+          <strong>Cast:</strong>
+        </h4>
         <p>
           <%= @movie.display_actors %>
         </p>
 
         <p>
-          <strong>Description:</strong>
+          <h4>
+            <strong>Description:</strong>
+          </h4>
           <%= @movie.display_description %>
         </p>
+
+        <p>
+          <% if user_signed_in? %>
+            <%= link_to 'Edit', edit_movie_path(@movie), class: 'btn btn-success' %>
+            <%= link_to 'Back', root_path, class: 'btn btn-primary' %>
+            <%= link_to 'Destroy', @movie, class: "btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %>
+          <% end %>
+        </p>
+
+        <div>
+          <div>
+            <div id='movie-reviews'>
+              <%= render 'reviews/show' %>
+            </div>
+
+            <div id='review-container'>
+              <% if user_signed_in? %>
+                <h2>Add a Review:</h2>
+              <% end %>
+              <%= render 'reviews/form' %>
+            </div>
+          </div>
+        </div>
       </div>
 
     </div>
   </div>
-</div>
-
-<div id='movie-reviews'>
-  <%= render 'reviews/show' %>
-</div>
-
-<h2>Add a Review:</h2>
-<div id='review-container'>
-  <%= render 'reviews/form' %>
 </div>

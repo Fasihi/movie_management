@@ -1,8 +1,8 @@
-<h1 class="text-center"><%= title %></h1>
+<h1 class="col-md-offset-2"><%= title %></h1>
 <div class='container'>
   <div class='container-fluid'>
     <div class='row'>
-      <%= render movies %>
+      <%= render movies, title: title %>
     </div>
     <div class='margin-down'>
       <%= link_to "View all", movies_path(filter: title.downcase), class: 'btn btn-default' %>
