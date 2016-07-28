@@ -1,3 +1,18 @@
-<%= render 'movies/movies_section', movies: @latest, title: 'Latest' if @latest.present? %>
-<%= render 'movies/movies_section', movies: @featured, title: 'Featured' if @featured.present? %>
-<%= render 'movies/movies_section', movies: @top, title: 'Top' if @top.present? %>
+<% if movies_present?(@top, @latest, @featured) %>
+  <div class='row'>
+    <div class='col-md-6 col-md-offset-3'>
+      <div class='panel panel-default'>
+        <div class='panel-heading'>
+          <h1 class='text-center'>No Movies To Show</h1>
+        </div>
+        <div class='panel-body text-center'>
+          <p>Sorry, no movies present. Click new movie in top right corner to add new movies. Don't forget to sign to add new movies</p>
+        </div>
+      </div>
+    </div>
+  </div>
+<% else %>
+  <%= render 'movies/movies_section', movies: @latest, title: 'Latest' if @latest.present? %>
+  <%= render 'movies/movies_section', movies: @featured, title: 'Featured' if @featured.present? %>
+  <%= render 'movies/movies_section', movies: @top, title: 'Top' if @top.present? %>
+<% end %>
