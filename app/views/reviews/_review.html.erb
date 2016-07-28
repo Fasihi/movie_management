@@ -1,7 +1,27 @@
 <div id="review-<%= review.id %>">
-  <strong>Review:</strong>
-  <%= review.comment %>
+  <div class='row'>
+    <div class='col-md-4'><strong>By:</strong>
+      <%= review.user.full_name %>
+    </div>
+    <div class='col-md-4'><strong>Review:</strong>
+      <%= review.comment %>
+    </div>
+    <div class='col-md-4'>
+      <% if user_signed_in? %>
+        <% if review_owner?(review) %>
+          <div class='clearfix'></div>
+          <%= link_to 'Edit', edit_movie_review_path(@movie, review), class: 'btn btn-xs btn-success', remote: true %>
+          <%= link_to 'Destroy', [@movie, review], remote: true, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger' %>
+        <% else %>
+          <span id="review-<%= review.id %>">
+            <%= link_to 'Report', review_reported_reviews_path(review), class: 'btn btn-xs btn-primary', remote: true, method: :post %>
+          </span>
+          <% if review.reported_by?(current_user.id) %>
+            <div class='btn btn-xs btn-danger'>Reported</div>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
   <div class="clearfix"></div>
-  <%= link_to 'Edit', edit_movie_review_path(@movie, review), class: 'btn btn-xs btn-success', remote: true %>
-  <%= link_to 'Destroy', [@movie, review], method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger', remote: true %>
 </div>
