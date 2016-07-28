@@ -5,11 +5,12 @@ module Api
       before_action :restrict_access
 
       def index
-        if (params[:title] || params[:genre] || params[:actors] || params[:release_date])
-          respond_with Movie.search_movie(params)
+        movies = unless params[:title] || params[:actors] || params[:genre]
+          Movie.all
         else
-          respond_with Movie.all
+          Movie.search_movies(params)
         end
+        respond_with movies.page(params[:page])
       end
 
       def show
@@ -17,17 +18,18 @@ module Api
         if @movie.present?
           respond_with @movie.details_hash
         else
-          respond_with []
+          respond_with ["error": "No movies present"]
         end
       end
 
       private
 
-        def restrict_access
-          authenticate_or_request_with_http_token do |token|
-            token == API_KEY
-          end
+      def restrict_access
+        if request && request.headers && request.headers['Authorization']
+          return if request.headers['Authorization'] == API_KEY
         end
+        head :unauthorized
+      end
 
     end
   end
