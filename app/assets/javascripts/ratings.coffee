@@ -38,7 +38,7 @@ $(document).on 'ready turbolinks:load', ->
             score: score
           dataType: 'json'
           success: (data) ->
-            set_average(data.rating.score)
+            set_average(data.average)
       else
         $.ajax
           type: 'PATCH'
