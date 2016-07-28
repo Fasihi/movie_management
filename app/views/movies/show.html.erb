@@ -1,8 +1,10 @@
+<% title 'Movie Details' %>
 <div id="movie-container" class="container" data-movie="<%= @movie.id %>" data-rating="<%= @rating.id if user_signed_in? %>">
   <div class="col-md-12">
     <div class="row">
 
-      <div class="left-area">
+      <div class="col-md-4">
+        <h1><%= @movie.title %></h1>
         <div class="clearfix">
           <p><%= image_tag @movie.first_poster %></p>
         </div>
@@ -20,7 +22,9 @@
         </div>
 
         <%= link_to 'Add to Favorite', movie_favorite_movies_path(@movie), method: :post, remote: true, class: 'btn btn-xs btn-primary' %>
+      </div>
 
+      <div class="col-md-8">
         <h4>
           <strong>Genre:</strong>
           <%= @movie.genre %>
@@ -45,22 +49,6 @@
           <strong>Featured:</strong>
           <%= @movie.featured %>
         </h4>
-      </div>
-
-      <div class="right-area">
-        <h1><%= @movie.title %></h1>
-
-        <% if @movie.trailer.present? %>
-          <%= @movie.display_trailer %>
-        <% else %>
-          <p>Sorry! No trailer found!</p>
-        <% end %>
-
-        <div class="poster", id="poster">
-          <p>
-            <%= render partial: 'poster', collection: @movie.posters, as: :poster %>
-          </p>
-        </div>
 
         <h4>
           <strong>Cast:</strong>
@@ -69,37 +57,51 @@
           <%= @movie.display_actors %>
         </p>
 
-        <p>
-          <h4>
-            <strong>Description:</strong>
-          </h4>
-          <%= @movie.display_description %>
-        </p>
+      </div>
+    </div>
 
-        <p>
+
+    <div>
+      <p>
+        <h3><strong>Plot:</strong></h3>
+        <%= @movie.display_description %>
+      </p>
+    </div>
+
+    <div class="poster", id="poster">
+      <h3><strong>Photos and Videos:</strong></h3>
+      <p>
+        <%= render partial: 'poster', collection: @movie.posters, as: :poster %>
+      </p>
+    </div>
+
+    <p class="pull-right">
+      <% if user_signed_in? %>
+        <%= link_to 'Edit', edit_movie_path(@movie), class: 'btn btn-success' %>
+        <%= link_to 'Back', root_path, class: 'btn btn-primary' %>
+        <%= link_to 'Destroy', @movie, class: "btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %>
+      <% end %>
+    </p>
+
+    <% if @movie.trailer.present? %>
+      <%= @movie.display_trailer %>
+    <% else %>
+      <p>Sorry! No trailer found!</p>
+    <% end %>
+
+    <div class="row">
+      <div>
+        <div id='movie-reviews'>
+          <%= render 'reviews/show' %>
+        </div>
+
+        <div id='review-container'>
           <% if user_signed_in? %>
-            <%= link_to 'Edit', edit_movie_path(@movie), class: 'btn btn-success' %>
-            <%= link_to 'Back', root_path, class: 'btn btn-primary' %>
-            <%= link_to 'Destroy', @movie, class: "btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %>
+            <h2>Add a Review:</h2>
           <% end %>
-        </p>
-
-        <div>
-          <div>
-            <div id='movie-reviews'>
-              <%= render 'reviews/show' %>
-            </div>
-
-            <div id='review-container'>
-              <% if user_signed_in? %>
-                <h2>Add a Review:</h2>
-              <% end %>
-              <%= render 'reviews/form' %>
-            </div>
-          </div>
+          <%= render 'reviews/form' %>
         </div>
       </div>
-
     </div>
   </div>
 </div>

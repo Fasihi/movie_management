@@ -17,4 +17,8 @@ module ApplicationHelper
   def movie_index_page?
     params[:controller] == 'movies' && params[:action] == 'index'
   end
+
+  def title(page_title)
+    content_for(:title) { page_title }
+  end
 end
