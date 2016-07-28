@@ -9,11 +9,16 @@ class MoviesController < ApplicationController
   end
 
   def show
-    @review = @movie.reviews.build
-    @rating = @movie.get_ratings(current_user) if user_signed_in?
-
-    respond_to do |format|
-      format.html
+    return (redirect_to root_path, alert: 'Movie not present') unless @movie.present?
+    if @movie.approved
+      @review = @movie.reviews.build
+      @rating = @movie.get_ratings(current_user) if user_signed_in?
+      respond_to do |format|
+        format.html
+      end
+    else
+      flash[:alert] = 'Movie not approved'
+      redirect_to root_path
     end
   end
 
@@ -22,6 +27,7 @@ class MoviesController < ApplicationController
   end
 
   def edit
+    return (redirect_to root_path, alert: 'Movie not present') unless @movie.present?
     @selected_values = @movie.actors.pluck(:id)
   end
 
@@ -62,7 +68,7 @@ class MoviesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_movie
-      @movie = Movie.find(params[:id])
+      @movie = Movie.find_by_id(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
