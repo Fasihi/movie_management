@@ -48,14 +48,15 @@ class Movie < ActiveRecord::Base
   end
 
   def self.get_movies(filter)
+    movie = Movie.includes(:posters)
     if filter == "latest"
-      Movie.latest_movies.approved
+      movie.latest_movies.approved
     elsif filter == "featured"
-      Movie.featured_movies.approved
+      movie.featured_movies.approved
     elsif filter == "top"
-      Movie.top_movies.approved
+      movie.top_movies.approved
     else
-      Movie.all.approved
+      movie.all.approved
     end
   end
 
@@ -74,11 +75,14 @@ class Movie < ActiveRecord::Base
   def details_hash
     {
       id: id,
+      title: title,
+      release_date: release_date,
       genre: genre,
       description: description,
       actors: actors.pluck(:id, :name, :biography, :gender, :created_at, :updated_at),
       reviews: reviews.pluck(:id, :user_id, :comment, :created_at, :updated_at, :report_count),
       ratings: ratings.pluck(:id, :score, :created_at, :updated_at, :user_id),
+      posters: posters.pluck(:id, :image_file_name, :image_content_type, :image_file_size)
     }
   end
 
