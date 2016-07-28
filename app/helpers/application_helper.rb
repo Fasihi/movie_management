@@ -13,4 +13,8 @@ module ApplicationHelper
       flash_type.to_s
     end
   end
+
+  def movie_index_page?
+    params[:controller] == 'movies' && params[:action] == 'index'
+  end
 end
