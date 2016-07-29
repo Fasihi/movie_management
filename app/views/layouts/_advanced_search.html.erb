@@ -2,36 +2,38 @@
   <div class='panel-heading'>
     <h3 align='center'>Advance Search</h3>
   </div>
-
   <div class='panel-body'>
     <%= form_tag movies_path, method: :get, class: 'form-inline' do %>
-      <div class='form-group'>
-        <%= text_field_tag :search, params[:search], class:'form-control', placeholder: 'Title' %>
-      </div>
-
-      <div class='form-group'>
-        <%= text_field_tag :genre, params[:genre], class:'form-control', placeholder: 'Genre' %>
-      </div>
-
-      <div class='form-group'>
-        <%= text_field_tag :actors, params[:actors], class:'form-control', placeholder: 'Actor' %>
-      </div>
-
-      <div class='form-group'>
-        <%= text_field_tag :description, params[:description], class:'form-control', placeholder: 'Description' %>
-      </div>
-
-      <div class='clearfix'></div>
-
-      <div class='row margin-top-class-10'>
-        <div class='col-md-12'>
-          <div class='form-group'>
-            <strong>Start Date</strong>
-            <%= date_field_tag :start_date, params[:start_date], class:'form-control', placeholder: 'Search By Start Date' %>
-            <strong>Last Date</strong>
-            <%= date_field_tag :end_date, params[:end_date], class:'form-control', placeholder: 'Search By End' %>
+      <div class='col-md-11 col-md-offset-1'>
+        <div class='row'>
+          <div class='form-group col-md-4'>
+            <%= text_field_tag :search, params[:search], class: 'form-control', placeholder: 'Title' %>
           </div>
-          <%= submit_tag 'Search', class:'btn btn-default' %>
+          <div class='form-group col-md-3'>
+            <%= text_field_tag :genre, params[:genre], class: 'form-control', placeholder: 'Genre' %>
+          </div>
+          <div class='form-group col-md-3'>
+            <%= text_field_tag :actors, params[:actors], class: 'form-control', placeholder: 'Actor' %>
+          </div>
+        </div>
+        <div class='row margin-top-class-10'>
+          <div class='col-md-12'>
+            <div class='form-group col-md-5'>
+              <strong>Start Date</strong>
+              <%= date_field_tag :start_date, params[:start_date], class: 'form-control', placeholder: 'Search By Start Date' %>
+            </div>
+            <div class='form-group col-md-5'>
+              <strong>Last Date</strong>
+              <%= date_field_tag :end_date, params[:end_date], class: 'form-control', placeholder: 'Search By End' %>
+            </div>
+          </div>
+        </div>
+        <div class='row margin-top-class-10'>
+          <div class='col-md-12'>
+            <div class='form-group col-md-5 col-md-offset-2'>
+              <%= submit_tag 'Search', class: 'btn btn-primary btn-block' %>
+            </div>
+          </div>
         </div>
       </div>
     <% end %>
