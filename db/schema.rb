@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160718075908) do
+ActiveRecord::Schema.define(version: 20160728185921) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -29,9 +29,9 @@ ActiveRecord::Schema.define(version: 20160718075908) do
   add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
 
   create_table "actors", force: :cascade do |t|
-    t.string   "name",       limit: 255
+    t.string   "name",       limit: 50,    null: false
     t.text     "biography",  limit: 65535
-    t.string   "gender",     limit: 255
+    t.string   "gender",     limit: 10,    null: false
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
   end
@@ -78,16 +78,17 @@ ActiveRecord::Schema.define(version: 20160718075908) do
   add_index "favorite_movies", ["user_id"], name: "index_favorite_movies_on_user_id", using: :btree
 
   create_table "movies", force: :cascade do |t|
-    t.string   "title",        limit: 255
-    t.string   "trailer",      limit: 255
-    t.text     "description",  limit: 65535
+    t.string   "title",        limit: 150,                  null: false
+    t.string   "trailer",      limit: 2000,                 null: false
+    t.text     "description",  limit: 65535,                null: false
     t.boolean  "approved"
     t.boolean  "featured"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
     t.integer  "duration",     limit: 4
-    t.string   "genre",        limit: 50
+    t.string   "genre",        limit: 15,                   null: false
     t.date     "release_date"
+    t.boolean  "delta",                      default: true, null: false
   end
 
   create_table "ratings", force: :cascade do |t|
@@ -112,9 +113,9 @@ ActiveRecord::Schema.define(version: 20160718075908) do
   add_index "reported_reviews", ["user_id"], name: "index_reported_reviews_on_user_id", using: :btree
 
   create_table "reviews", force: :cascade do |t|
-    t.integer  "user_id",      limit: 4
-    t.integer  "movie_id",     limit: 4
-    t.text     "comment",      limit: 65535
+    t.integer  "user_id",      limit: 4,                 null: false
+    t.integer  "movie_id",     limit: 4,                 null: false
+    t.text     "comment",      limit: 65535,             null: false
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
     t.integer  "report_count", limit: 4,     default: 0
@@ -134,7 +135,7 @@ ActiveRecord::Schema.define(version: 20160718075908) do
   add_index "roles", ["movie_id"], name: "index_roles_on_movie_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  limit: 255, default: "", null: false
+    t.string   "email",                  limit: 100, default: "", null: false
     t.string   "encrypted_password",     limit: 255, default: "", null: false
     t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
@@ -147,10 +148,10 @@ ActiveRecord::Schema.define(version: 20160718075908) do
     t.string   "confirmation_token",     limit: 255
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
-    t.string   "unconfirmed_email",      limit: 255
+    t.string   "unconfirmed_email",      limit: 100
     t.datetime "created_at",                                      null: false
     t.datetime "updated_at",                                      null: false
-    t.string   "full_name",              limit: 50
+    t.string   "full_name",              limit: 50,               null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
