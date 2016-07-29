@@ -2,10 +2,6 @@
   background: black;
 }
 
-#search_bar {
- display: none;
-}
-
 .login, .registration {
   display: inline-block;
 }
@@ -16,4 +12,30 @@
 
 .profile {
   color: #808080;
+}
+
+.footer {
+  width: 100%;
+  border: 1px solid grey;
+}
+
+.height-100 {
+  height: max-content;
+  min-height: 100%;
+}
+
+html, body {
+  height: 100%;
+}
+
+#header_search {
+  margin-top: 7px;
+}
+
+.link-custom {
+  color: #fff !important;
+}
+
+.movie-details {
+  margin-top: 56px;
 }

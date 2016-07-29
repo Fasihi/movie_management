@@ -24,7 +24,7 @@
         <%= link_to 'Add to Favorite', movie_favorite_movies_path(@movie), method: :post, remote: true, class: 'btn btn-xs btn-primary' %>
       </div>
 
-      <div class="col-md-8">
+      <div class="col-md-8 movie-details">
         <h4>
           <strong>Genre:</strong>
           <%= @movie.genre %>
@@ -83,11 +83,12 @@
       <% end %>
     </p>
 
-    <% if @movie.trailer.present? %>
-      <%= @movie.display_trailer %>
-    <% else %>
-      <p>Sorry! No trailer found!</p>
-    <% end %>
+      <% if @movie.trailer.present? %>
+        <%= @movie.display_trailer %>
+      <% else %>
+        <p>Sorry! No trailer found!</p>
+      <% end %>
+
 
     <div class="row">
       <div>

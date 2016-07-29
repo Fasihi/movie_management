@@ -1,74 +1,67 @@
-<div class="wrapper container">
-  <div class="row">
-    <div class="col-md-offset-1">
-      <%= nested_form_for(@movie) do |f| %>
-        <% if @movie.errors.any? %>
-          <div id="error_explanation">
-            <h2><%= pluralize(@movie.errors.count, "error") %> prohibited this movie from being saved:</h2>
+<%= nested_form_for(@movie) do |f| %>
+  <% if @movie.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@movie.errors.count, "error") %> prohibited this movie from being saved:</h2>
 
-            <ul>
-              <% @movie.errors.full_messages.each do |message| %>
-                <li><%= message %></li>
-              <% end %>
-            </ul>
-          </div>
+      <ul>
+        <% @movie.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
         <% end %>
-
-        <div class="form-group">
-          <%= f.label :title %>
-          <%= f.text_field :title, class: 'form-control', required: true, maxlength: 150 %>
-        </div>
-
-        <div class="form-group">
-          <%= f.label :genre %>
-          <%= f.text_field :genre, class: 'form-control', required: true, maxlength: 15 %>
-        </div>
-
-        <div class="form-group">
-          <%= f.label :trailer %>
-          <%= f.text_area :trailer, class: 'form-control', required: true, maxlength: 2000 %>
-        </div>
-
-        <div class="form-group">
-          <%= f.label :release_date %>
-          <%= f.date_field :release_date, required: true, class: 'form-control' %>
-        </div>
-
-        <div class="form-group">
-          <%= f.label :duration %>
-          <%= f.number_field :duration, required: true, class: 'form-control', min: '0', step: '1' %>
-        </div>
-
-        <div class="form-group">
-          <%= f.label :description %>
-          <%= f.cktext_area :description, rows: 10, required: true %>
-        </div>
-
-        <div>
-          <%= f.fields_for :posters do |poster| %>
-            <% if poster.object.image.exists? %>
-              <div><%= image_tag poster.object.image.url(:thumb) %></div>
-            <% end %>
-            <div>
-              <%= poster.file_field :image %>
-            </div>
-            <%= poster.link_to_remove '', class: 'btn btn-xs btn-danger margin glyphicon glyphicon-remove' %>
-          <% end %>
-
-          <p><%= f.link_to_add "Add poster", :posters, class: 'btn btn-primary' %></p>
-        </div>
-
-        <div>
-          <%= f.label :actor %>
-          <%= f.select :actor_ids, options_from_collection_for_select(@actors, 'id', 'name', @selected_values), {}, { multiple: true } %>
-        </div>
-
-        <div class="actions">
-          <%= link_to "Cancel", root_path, class: 'btn btn-danger' %>
-          <%= f.submit "Submit", class: 'btn btn-success' %>
-        </div>
-      <% end %>
-
+      </ul>
     </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :title %>
+    <%= f.text_field :title, class: 'form-control', required: true, maxlength: 150 %>
   </div>
-</div>
+
+  <div class="form-group">
+    <%= f.label :genre %>
+    <%= f.text_field :genre, class: 'form-control', required: true, maxlength: 15 %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :trailer %>
+    <%= f.text_area :trailer, class: 'form-control', required: true, maxlength: 2000 %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :release_date %>
+    <%= f.date_field :release_date, required: true, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :duration %>
+    <%= f.number_field :duration, required: true, class: 'form-control', min: '0', step: '1' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :description %>
+    <%= f.cktext_area :description, rows: 10, required: true %>
+  </div>
+
+  <div>
+    <%= f.fields_for :posters do |poster| %>
+      <% if poster.object.image.exists? %>
+        <div><%= image_tag poster.object.image.url(:thumb) %></div>
+      <% end %>
+      <div>
+        <%= poster.file_field :image %>
+      </div>
+      <%= poster.link_to_remove '', class: 'btn btn-xs btn-danger margin glyphicon glyphicon-remove' %>
+    <% end %>
+
+    <p><%= f.link_to_add "Add poster", :posters, class: 'btn btn-primary' %></p>
+  </div>
+
+  <div>
+    <%= f.label :actor %>
+    <%= f.select :actor_ids, options_from_collection_for_select(@actors, 'id', 'name', @selected_values), {}, { multiple: true } %>
+  </div>
+
+  <div class="actions">
+    <%= link_to "Cancel", root_path, class: 'btn btn-danger' %>
+    <%= f.submit "Submit", class: 'btn btn-success' %>
+  </div>
+<% end %>

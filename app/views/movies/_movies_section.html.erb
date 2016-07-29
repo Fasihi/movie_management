@@ -4,7 +4,7 @@
     <div class='row'>
       <%= render movies, title: title %>
     </div>
-    <div class='margin-down'>
+    <div class='margin-down pull-right'>
       <%= link_to "View all", movies_path(filter: title.downcase), class: 'btn btn-default' %>
     </div>
   </div>
