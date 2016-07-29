@@ -3,20 +3,28 @@
     <div class='navbar-header'>
       <%= link_to "Movie Management System", root_path, class: 'navbar-brand' %>
     </div>
+    <ul class="nav navbar-nav pull-left">
+      <li><%= link_to 'Show Movies', movies_path %></li>
+    </ul>
     <ul class="nav navbar-nav pull-right">
       <li><%= render 'layouts/search' %></li>
-      <% if movie_index_page? %>
-        <li><%= link_to 'Advance Search', '#', id: 'advance_search_btn' %></li>
-      <% end %>
       <% if user_signed_in? %>
         <li class="active">
-          <strong><%= link_to current_user.full_name, my_profile_path %></strong>
+          <strong><%= link_to current_user.full_name, my_profile_path, class: 'link-custom' %></strong>
           <%= image_tag current_user.profile_pic_url(:thumb), width: '35px', height: '50px' %>
         </li>
-        <li><%= link_to 'Add Movie', new_movie_path %></li>
-        <li><%= link_to 'Show Movies', movies_path %></li>
-        <li><%= link_to 'Edit Profile', edit_user_registration_path %></li>
-        <li><%= link_to 'Logout', destroy_user_session_path, method: :delete %></li>
+        <li class="dropdown">
+          <%= link_to 'Profile', my_profile_path, class: 'dropdown-toggle' %>
+          <ul class="dropdown-menu">
+            <li>
+              <%= link_to 'Edit profile', edit_user_registration_path %>
+            </li>
+            <li>
+              <%= link_to 'Logout', destroy_user_session_path, method: :delete %>
+            </li>
+          </ul>
+        </li>
+        <li><%= link_to 'Add Movie', new_movie_path, class: 'btn btn-default' %></li>
       <% else %>
         <li><%= link_to 'Sign Up', new_user_registration_path %></li>
         <li><%= link_to 'Login', new_user_session_path %></li>
