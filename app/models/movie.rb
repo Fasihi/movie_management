@@ -73,6 +73,10 @@ class Movie < ActiveRecord::Base
   end
 
   def details_hash
+    images = []
+    posters.each do |poster|
+      images << poster.image.url
+    end
     {
       id: id,
       title: title,
@@ -82,6 +86,7 @@ class Movie < ActiveRecord::Base
       actors: actors.pluck(:id, :name, :biography, :gender, :created_at, :updated_at),
       reviews: reviews.pluck(:id, :user_id, :comment, :created_at, :updated_at, :report_count),
       ratings: ratings.pluck(:id, :score, :created_at, :updated_at, :user_id),
+      posters: posters.pluck(:id, :image_file_name, :image_content_type, :image_file_size),
     }
   end
 
