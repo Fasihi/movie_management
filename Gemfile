@@ -26,7 +26,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'devise'
 
 gem 'paperclip'
-
+gem 'pg'
 gem 'ckeditor'
 
 gem 'nested_form'
