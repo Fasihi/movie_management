@@ -1,10 +1,3 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
 actor_list = [
   [ "Al Pacino", "He is a legendary actor having Italian descent.", "Male" ],
   [ "George Clooney", "He is a very graceful actor.", "Male" ],
@@ -18,3 +11,4 @@ actor_list = [
 actor_list.each do |name, biography, gender|
   Actor.create( name: name, biography: biography, gender: gender )
 end
+AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
