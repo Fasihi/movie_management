@@ -39,6 +39,7 @@ $(document).on 'ready turbolinks:load', ->
           dataType: 'json'
           success: (data) ->
             set_average(data.average)
+            $('.container').data 'rating', data.id
       else
         $.ajax
           type: 'PATCH'
