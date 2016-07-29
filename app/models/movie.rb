@@ -1,8 +1,8 @@
 class Movie < ActiveRecord::Base
   include ThinkingSphinx::Scopes
 
-  paginates_per 4
-  SEARCH_PER_PAGE = 4
+  paginates_per 8
+  SEARCH_PER_PAGE = 8
   DEFAULT_SEARCH_FILTER = { approved: true }
   DEFAULT_SEARCH_ORDER = 'updated_at DESC'
 
@@ -82,7 +82,6 @@ class Movie < ActiveRecord::Base
       actors: actors.pluck(:id, :name, :biography, :gender, :created_at, :updated_at),
       reviews: reviews.pluck(:id, :user_id, :comment, :created_at, :updated_at, :report_count),
       ratings: ratings.pluck(:id, :score, :created_at, :updated_at, :user_id),
-      posters: posters.pluck(:id, :image_file_name, :image_content_type, :image_file_size)
     }
   end
 
